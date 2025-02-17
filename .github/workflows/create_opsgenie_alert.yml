@@ -1,7 +1,7 @@
 name: Create OpsGenie Alert
 
 on:
-  workflow_dispatch:  # <--- This line is mandatory for Port.io integration
+  workflow_dispatch:
     inputs:
       message:
         description: 'Incident Message'
@@ -17,8 +17,8 @@ on:
         description: 'Comma-separated tags'
         required: false
         default: 'port_io'
-      port_context:  # Optional to handle Port.io's extra field
-        description: 'Port.io context (ignored by workflow)'
+      port_context: 
+        description: 'Port.io context'
         required: false
 
 jobs:
