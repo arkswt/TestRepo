@@ -1,0 +1,37 @@
+name: Create OpsGenie Alert
+
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 'Incident Message'
+        required: true
+      description:
+        description: 'Detailed Description'
+        required: false
+      priority:
+        description: 'Priority Level'
+        required: false
+        default: 'P3'
+      tags:
+        description: 'Comma-separated tags'
+        required: false
+        default: 'port_io'
+
+jobs:
+  opsgenie_alert:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Alert to OpsGenie
+        run: |
+          curl -X POST "https://api.opsgenie.com/v2/alerts" \
+          -H "Content-Type: application/json" \
+          -H "Authorization: GenieKey ${{ secrets.OPSGENIE_API_KEY }}" \
+          -d '{
+            "message": "${{ github.event.inputs.message }}",
+            "description": "${{ github.event.inputs.description }}",
+            "priority": "${{ github.event.inputs.priority }}",
+            "tags": ["${{ github.event.inputs.tags }}"],
+            "source": "Port.io"
+          }'
