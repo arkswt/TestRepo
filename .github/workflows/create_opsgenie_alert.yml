@@ -17,6 +17,9 @@ on:
         description: 'Comma-separated tags'
         required: false
         default: 'port_io'
+     port_context:    # <-- Added this line to handle Port.io's extra field
+        description: 'Port.io context (ignored by workflow)'
+        required: false
 
 jobs:
   opsgenie_alert:
